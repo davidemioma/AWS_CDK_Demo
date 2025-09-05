@@ -1,0 +1,37 @@
+To create a cdk app run "cdk init app --language typescript"
+Set your env, AWS_ACCOUNT_ID and AWS_REGION.
+Run "cdk help" to see commands.
+Run "cdk synth" to see cloudformation form.
+### Option A — Configure a profile (recommended)
+```bash
+aws configure --profile my-cdk
+# Enter Access key, Secret, and region (e.g., eu-west-2)
+
+export AWS_PROFILE=my-cdk
+aws sts get-caller-identity
+cdk bootstrap
+cdk synth
+cdk deploy
+```
+
+### Option B — One-off via environment variables (inline)
+```bash
+<code_block_to_apply_changes_from>
+```
+- If your keys are temporary, also include `AWS_SESSION_TOKEN=...`. 
+- Using a profile avoids retyping and is less error-prone.
+```
+AWS_ACCOUNT_ID=YOUR_ACCOUNT_ID
+AWS_ACCESS_KEY_ID=YOUR_KEY \
+AWS_SECRET_ACCESS_KEY=YOUR_SECRET \
+AWS_REGION=eu-west-2 \
+cdk bootstrap 
+
+- To set up the CDK “toolkit” resources in your target account/region so deployments can work.
+
+AWS_ACCESS_KEY_ID=YOUR_KEY \
+AWS_SECRET_ACCESS_KEY=YOUR_SECRET \
+AWS_REGION=eu-west-2 \
+cdk deploy
+
+- To deploy

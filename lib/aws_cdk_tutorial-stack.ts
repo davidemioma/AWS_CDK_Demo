@@ -1,6 +1,8 @@
 import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
-import { Bucket, CfnBucket } from "aws-cdk-lib/aws-s3";
+import { Bucket, CfnBucket, EventType } from "aws-cdk-lib/aws-s3";
+import { Queue } from "aws-cdk-lib/aws-sqs";
+import { SqsDestination } from "aws-cdk-lib/aws-s3-notifications";
 
 export class AwsCdkTutorialStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -18,5 +20,16 @@ export class AwsCdkTutorialStack extends cdk.Stack {
       bucketName: "my-lv2-bucket",
       versioned: true,
     });
+
+    // AWS SQS
+    const queue = new Queue(this, "myQueue", {
+      queueName: "my-queue",
+    });
+
+    // Linking S3 to SQS - Add notification for CREATED events
+    lv2S3Bucket.addEventNotification(
+      EventType.OBJECT_CREATED, // Triggers on Create operations
+      new SqsDestination(queue) // Sends message to SQS
+    );
   }
 }

@@ -32,6 +32,6 @@ cdk bootstrap
 AWS_ACCESS_KEY_ID=YOUR_KEY \
 AWS_SECRET_ACCESS_KEY=YOUR_SECRET \
 AWS_REGION=eu-west-2 \
-cdk deploy
+cdk deploy or cdk watch
 
 - To deploy
